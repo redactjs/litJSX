@@ -1,12 +1,10 @@
 /*
  * litJSX
- * 
+ * SOURCE https://github.com/ComponentKitchen/litJSX
  * JSX-like tagged template literals
+ * adapted for the browser
  */
 
-
-// @ts-ignore
-const { DOMParser } = require('xmldom');
 let domParser = new DOMParser();
 
 
@@ -379,7 +377,7 @@ function transformNode(node, classMap = {}) {
   const localName = node.localName;
   const isClassName = localName[0] === localName[0].toUpperCase();
   const nameData = isClassName ?
-    classMap[localName] || global[localName] :
+    classMap[localName] || self[localName] :
     localName;
   if (!nameData) {
     throw `Couldn't find definition for "${localName}".`;
@@ -441,7 +439,7 @@ function transformText(text) {
 }
 
 
-module.exports = {
+export {
   jsxToText,
   jsxToTextWith,
   parse,
